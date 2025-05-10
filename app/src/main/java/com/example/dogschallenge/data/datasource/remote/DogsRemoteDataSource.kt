@@ -5,5 +5,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface DogsRemoteDataSource {
 
-    fun fetchDogs(): Flow<Result<DogResponse>>
+    fun fetchDogs(): Flow<Result<List<DogResponse>>>
 }

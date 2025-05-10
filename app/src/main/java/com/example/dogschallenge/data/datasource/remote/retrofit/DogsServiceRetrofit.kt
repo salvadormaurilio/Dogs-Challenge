@@ -6,5 +6,5 @@ import retrofit2.http.GET
 interface DogsServiceRetrofit {
 
     @GET(DOGS_ENDPOINT)
-    suspend fun fetchDogs(): DogResponse
+    suspend fun fetchDogs(): List<DogResponse>
 }
