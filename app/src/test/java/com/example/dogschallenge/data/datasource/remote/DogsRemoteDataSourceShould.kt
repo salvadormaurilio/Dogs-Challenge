@@ -29,7 +29,7 @@ class DogsRemoteDataSourceShould {
 
     @Test
     fun `Get DogsResponse data when fetchDogs is success`(): Unit = runTest {
-        val dogResponses = givenDogsResponseFakeData()
+        val dogsResponse = givenDogsResponseFakeData()
         webServerRule.loadMockResponse(fileName = "dogsResponse.json")
 
         val result = dogsRemoteDataSource.fetchDogs().lastOrNull()
@@ -38,7 +38,7 @@ class DogsRemoteDataSourceShould {
             path = EXPECT_DOGS_ENDPOINT,
             method = MockWebServerRule.GET
         )
-        assertThatEquals(result?.getOrNull(), dogResponses)
+        assertThatEquals(result?.getOrNull(), dogsResponse)
     }
 
     @Test
