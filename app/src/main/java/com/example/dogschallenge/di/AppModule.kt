@@ -2,7 +2,13 @@ package com.example.dogschallenge.di
 
 import com.example.dogschallenge.BuildConfig
 import com.example.dogschallenge.core.coroutines.CoroutinesDispatchers
+import com.example.dogschallenge.data.DogsRepositoryImpl
+import com.example.dogschallenge.data.datasource.DogsRepository
+import com.example.dogschallenge.data.datasource.remote.DogsRemoteDataSource
+import com.example.dogschallenge.data.datasource.remote.DogsRemoteDataSourceImpl
 import com.example.dogschallenge.data.datasource.remote.retrofit.DogsServiceRetrofit
+import com.example.dogschallenge.domain.GetDogsUseCase
+import com.example.dogschallenge.domain.GetDogsUseCaseImpl
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
@@ -40,4 +46,16 @@ object AppModule {
     @Singleton
     fun provideDogsServiceRetrofit(retrofit: Retrofit): DogsServiceRetrofit =
         retrofit.create(DogsServiceRetrofit::class.java)
+
+    @Provides
+    fun provideDogsRemoteDataSource(dogsServiceRetrofit: DogsServiceRetrofit): DogsRemoteDataSource =
+        DogsRemoteDataSourceImpl(dogsServiceRetrofit)
+
+    @Provides
+    fun provideDogsRepository(dogsRemoteDataSource: DogsRemoteDataSource): DogsRepository =
+        DogsRepositoryImpl(dogsRemoteDataSource)
+
+    @Provides
+    fun provideGetDogsUseCase(dogsRepository: DogsRepository): GetDogsUseCase =
+        GetDogsUseCaseImpl(dogsRepository)
 }

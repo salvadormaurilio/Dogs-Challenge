@@ -5,9 +5,8 @@ import com.example.dogschallenge.data.datasource.model.DogResponse
 import com.example.dogschallenge.data.datasource.remote.retrofit.DogsServiceRetrofit
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import javax.inject.Inject
 
-class DogsRemoteDataSourceImpl @Inject constructor(
+class DogsRemoteDataSourceImpl(
     private val dogsServiceRetrofit: DogsServiceRetrofit
 ) : DogsRemoteDataSource {
 
