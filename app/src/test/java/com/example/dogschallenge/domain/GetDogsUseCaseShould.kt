@@ -15,7 +15,7 @@ import org.mockito.Mockito.mock
 import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
 
-class GetDogsUserCaseShould {
+class GetDogsUseCaseShould {
 
     private val dogsRepository = mock<DogsRepository>()
     private lateinit var getDogsUseCase: GetDogsUseCase

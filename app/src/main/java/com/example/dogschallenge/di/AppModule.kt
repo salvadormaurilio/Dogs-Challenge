@@ -1,9 +1,11 @@
 package com.example.dogschallenge.di
 
+import android.app.Application
 import com.example.dogschallenge.BuildConfig
 import com.example.dogschallenge.core.coroutines.CoroutinesDispatchers
 import com.example.dogschallenge.data.DogsRepository
 import com.example.dogschallenge.data.DogsRepositoryImpl
+import com.example.dogschallenge.data.datasource.local.room.DogsRoomDatabase
 import com.example.dogschallenge.data.datasource.remote.DogsRemoteDataSource
 import com.example.dogschallenge.data.datasource.remote.DogsRemoteDataSourceImpl
 import com.example.dogschallenge.data.datasource.remote.retrofit.DogsServiceRetrofit
@@ -46,6 +48,15 @@ object AppModule {
     @Singleton
     fun provideDogsServiceRetrofit(retrofit: Retrofit): DogsServiceRetrofit =
         retrofit.create(DogsServiceRetrofit::class.java)
+
+    @Provides
+    @Singleton
+    fun provideDogsRoomDatabase(application: Application) =
+        DogsRoomDatabase.getInstance(application)
+
+    @Provides
+    @Singleton
+    fun provideDogsDao(dogsRoomDatabase: DogsRoomDatabase) = dogsRoomDatabase.dogsDao()
 
     @Provides
     fun provideDogsRemoteDataSource(dogsServiceRetrofit: DogsServiceRetrofit): DogsRemoteDataSource =
