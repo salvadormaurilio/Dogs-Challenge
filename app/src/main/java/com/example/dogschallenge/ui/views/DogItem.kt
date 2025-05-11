@@ -23,6 +23,7 @@ import coil.compose.AsyncImage
 import com.example.dogschallenge.R
 import com.example.dogschallenge.core.extensions.empty
 import com.example.dogschallenge.domain.model.Dog
+import com.example.dogschallenge.ui.getDog1TestData
 import com.example.dogschallenge.ui.theme.DogsChallengeTheme
 
 @Composable
@@ -71,6 +72,6 @@ fun DogItem(dog: Dog) {
 @Composable
 private fun DogItemPreview() {
     DogsChallengeTheme {
-        DogItem(dog = dog1TestData())
+        DogItem(dog = getDog1TestData())
     }
 }
