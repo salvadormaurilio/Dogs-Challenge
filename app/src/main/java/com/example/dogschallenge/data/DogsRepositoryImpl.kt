@@ -1,6 +1,5 @@
 package com.example.dogschallenge.data
 
-import com.example.dogschallenge.data.datasource.DogsRepository
 import com.example.dogschallenge.data.datasource.remote.DogsRemoteDataSource
 import com.example.dogschallenge.domain.model.toDogs
 import kotlinx.coroutines.flow.map

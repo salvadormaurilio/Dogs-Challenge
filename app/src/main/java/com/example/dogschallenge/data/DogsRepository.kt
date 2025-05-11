@@ -1,4 +1,4 @@
-package com.example.dogschallenge.data.datasource
+package com.example.dogschallenge.data
 
 import com.example.dogschallenge.domain.model.Dog
 import kotlinx.coroutines.flow.Flow

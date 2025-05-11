@@ -2,7 +2,7 @@ package com.example.dogschallenge.domain
 
 import com.example.dogschallenge.core.assertThatEquals
 import com.example.dogschallenge.core.assertThatIsInstanceOf
-import com.example.dogschallenge.data.datasource.DogsRepository
+import com.example.dogschallenge.data.DogsRepository
 import com.example.dogschallenge.data.datasource.exception.DataException
 import com.example.dogschallenge.domain.model.Dog
 import com.example.dogschallenge.fakedata.givenDogsFakeData

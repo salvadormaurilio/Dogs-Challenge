@@ -2,8 +2,8 @@ package com.example.dogschallenge.di
 
 import com.example.dogschallenge.BuildConfig
 import com.example.dogschallenge.core.coroutines.CoroutinesDispatchers
+import com.example.dogschallenge.data.DogsRepository
 import com.example.dogschallenge.data.DogsRepositoryImpl
-import com.example.dogschallenge.data.datasource.DogsRepository
 import com.example.dogschallenge.data.datasource.remote.DogsRemoteDataSource
 import com.example.dogschallenge.data.datasource.remote.DogsRemoteDataSourceImpl
 import com.example.dogschallenge.data.datasource.remote.retrofit.DogsServiceRetrofit

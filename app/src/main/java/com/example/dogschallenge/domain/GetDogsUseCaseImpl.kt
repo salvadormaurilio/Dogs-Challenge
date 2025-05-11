@@ -1,6 +1,6 @@
 package com.example.dogschallenge.domain
 
-import com.example.dogschallenge.data.datasource.DogsRepository
+import com.example.dogschallenge.data.DogsRepository
 
 class GetDogsUseCaseImpl(private val dogsRepository: DogsRepository) : GetDogsUseCase {
 
