@@ -5,6 +5,9 @@ import com.example.dogschallenge.BuildConfig
 import com.example.dogschallenge.core.coroutines.CoroutinesDispatchers
 import com.example.dogschallenge.data.DogsRepository
 import com.example.dogschallenge.data.DogsRepositoryImpl
+import com.example.dogschallenge.data.datasource.local.DogsLocalDataSource
+import com.example.dogschallenge.data.datasource.local.DogsLocalDataSourceImpl
+import com.example.dogschallenge.data.datasource.local.room.DogsDao
 import com.example.dogschallenge.data.datasource.local.room.DogsRoomDatabase
 import com.example.dogschallenge.data.datasource.remote.DogsRemoteDataSource
 import com.example.dogschallenge.data.datasource.remote.DogsRemoteDataSourceImpl
@@ -58,9 +61,14 @@ object AppModule {
     @Singleton
     fun provideDogsDao(dogsRoomDatabase: DogsRoomDatabase) = dogsRoomDatabase.dogsDao()
 
+    @Singleton
     @Provides
     fun provideDogsRemoteDataSource(dogsServiceRetrofit: DogsServiceRetrofit): DogsRemoteDataSource =
         DogsRemoteDataSourceImpl(dogsServiceRetrofit)
+
+    @Provides
+    fun provideDogsLocalDataSource(dogsDao: DogsDao): DogsLocalDataSource =
+        DogsLocalDataSourceImpl(dogsDao)
 
     @Provides
     fun provideDogsRepository(dogsRemoteDataSource: DogsRemoteDataSource): DogsRepository =
