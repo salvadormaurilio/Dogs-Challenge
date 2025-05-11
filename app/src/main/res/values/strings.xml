@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">Dogs we Love</string>
     <string name="dog_age">Almost %d years</string>
+    <string name="something_went_wrong">Oops! Something went wrong</string>
+    <string name="dogs_load_error">We couldn\'t load the dogs.\nPlease check your connection and try again.</string>
+    <string name="default_error">Please check your connection and try again.</string>
+    <string name="retry">Retry</string>
 </resources>
