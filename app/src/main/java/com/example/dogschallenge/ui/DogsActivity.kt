@@ -12,6 +12,7 @@ class DogsActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             DogsChallengeTheme {
+                DogsScreen()
             }
         }
     }
