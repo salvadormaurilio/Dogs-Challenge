@@ -1,4 +1,4 @@
-package com.example.dogschallenge.ui
+package com.example.dogschallenge.ui.model
 
 import com.example.dogschallenge.domain.model.Dog
 

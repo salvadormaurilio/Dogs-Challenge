@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.dogschallenge.core.coroutines.CoroutinesDispatchers
 import com.example.dogschallenge.domain.GetDogsUseCase
 import com.example.dogschallenge.domain.model.Dog
+import com.example.dogschallenge.ui.model.DogsUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -19,7 +20,7 @@ class DogsViewModel @Inject constructor(
     private val coroutinesDispatchers: CoroutinesDispatchers
 ) : ViewModel() {
 
-    var jobGetDogs: Job? = null
+    var jobGetMovies: Job? = null
 
     private val _dogsUiState = MutableStateFlow(DogsUiState())
     val dogsUiState = _dogsUiState.asStateFlow()
@@ -35,8 +36,8 @@ class DogsViewModel @Inject constructor(
     }
 
     private fun getDogs() {
-        jobGetDogs?.cancel()
-        jobGetDogs = viewModelScope.launch(coroutinesDispatchers.io) {
+        jobGetMovies?.cancel()
+        jobGetMovies = viewModelScope.launch(coroutinesDispatchers.io) {
             updateDogsUiState(isLoading = true)
             getDogsUseCase().collect {
                 getDogsSuccess(it)

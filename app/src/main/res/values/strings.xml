@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">Dogs Challenge</string>
+    <string name="app_name">Dogs we Love</string>
+    <string name="dog_age">Almost %d years</string>
 </resources>
