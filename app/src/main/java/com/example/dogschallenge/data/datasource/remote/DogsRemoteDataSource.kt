@@ -1,6 +1,6 @@
 package com.example.dogschallenge.data.datasource.remote
 
-import com.example.dogschallenge.data.datasource.model.DogResponse
+import com.example.dogschallenge.data.datasource.remote.retrofit.DogResponse
 import kotlinx.coroutines.flow.Flow
 
 interface DogsRemoteDataSource {

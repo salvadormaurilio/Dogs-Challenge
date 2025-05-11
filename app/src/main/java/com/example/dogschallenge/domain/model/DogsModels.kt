@@ -1,7 +1,7 @@
 package com.example.dogschallenge.domain.model
 
 import com.example.dogschallenge.core.extensions.orDefault
-import com.example.dogschallenge.data.datasource.model.DogResponse
+import com.example.dogschallenge.data.datasource.remote.retrofit.DogResponse
 
 data class Dog(
     val name: String,

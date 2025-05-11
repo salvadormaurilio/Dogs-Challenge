@@ -1,6 +1,6 @@
 package com.example.dogschallenge.fakedata
 
-import com.example.dogschallenge.data.datasource.model.DogResponse
+import com.example.dogschallenge.data.datasource.remote.retrofit.DogResponse
 import com.example.dogschallenge.domain.model.Dog
 
 const val EXPECT_DOGS_ENDPOINT = "/1151549092634943488"

@@ -4,8 +4,8 @@ import com.example.dogschallenge.core.assertThatEquals
 import com.example.dogschallenge.core.assertThatIsInstanceOf
 import com.example.dogschallenge.data.datasource.DogsRepository
 import com.example.dogschallenge.data.datasource.exception.DataException
-import com.example.dogschallenge.data.datasource.model.DogResponse
 import com.example.dogschallenge.data.datasource.remote.DogsRemoteDataSource
+import com.example.dogschallenge.data.datasource.remote.retrofit.DogResponse
 import com.example.dogschallenge.fakedata.givenDogsFakeData
 import com.example.dogschallenge.fakedata.givenDogsResponseFakeData
 import kotlinx.coroutines.flow.flowOf

@@ -1,4 +1,4 @@
-package com.example.dogschallenge.data.datasource.model
+package com.example.dogschallenge.data.datasource.remote.retrofit
 
 import com.google.gson.annotations.SerializedName
 

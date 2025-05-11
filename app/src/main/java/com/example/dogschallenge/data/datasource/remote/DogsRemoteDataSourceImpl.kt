@@ -1,7 +1,7 @@
 package com.example.dogschallenge.data.datasource.remote
 
 import com.example.dogschallenge.data.datasource.exception.DataException
-import com.example.dogschallenge.data.datasource.model.DogResponse
+import com.example.dogschallenge.data.datasource.remote.retrofit.DogResponse
 import com.example.dogschallenge.data.datasource.remote.retrofit.DogsServiceRetrofit
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
