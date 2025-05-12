@@ -80,9 +80,7 @@ private fun DogsContent(
                 state = pullToRefreshState,
                 onRefresh = onRefresh
             ) {
-                Dogs(
-                    dogs = dogs
-                )
+                Dogs(dogs = dogs)
 
                 DogsErrorScreen(
                     error = error,
@@ -120,11 +118,8 @@ fun DogsTopAppBar(onBackClick: () -> Unit = {}) {
 }
 
 @Composable
-fun Dogs(
-    dogs: List<Dog>?
-) {
+fun Dogs(dogs: List<Dog>?) {
     if (dogs == null) return
-
     LazyColumn(
         contentPadding = PaddingValues(vertical = 8.dp)
     ) {
