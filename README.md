@@ -46,11 +46,8 @@ This is an Android project that displays a list of dogs from a [Mock Endpoint](h
 
 | Refresh data | Error and Retry |
 |-|-|
-| <video src="https://github.com/user-attachments/assets/7f3cbaaf-ff0c-46fd-80a6-d349766a599e" width="360" controls></video> | <video src="" width="360" controls></video> |
-
-
-
-https://github.com/user-attachments/assets/62ececd7-c9f6-476b-95a3-1ec8594ee086
+| <video src="https://github.com/user-attachments/assets/7f3cbaaf-ff0c-46fd-80a6-d349766a599e" width="360" controls></video> | <video src="
+https://github.com/user-attachments/assets/62ececd7-c9f6-476b-95a3-1ec8594ee086" width="360" controls></video> |
 
 
 ## 🧪 How to Run & Test the Project
