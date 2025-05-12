@@ -71,8 +71,11 @@ object AppModule {
         DogsLocalDataSourceImpl(dogsDao)
 
     @Provides
-    fun provideDogsRepository(dogsRemoteDataSource: DogsRemoteDataSource): DogsRepository =
-        DogsRepositoryImpl(dogsRemoteDataSource)
+    fun provideDogsRepository(
+        dogsRemoteDataSource: DogsRemoteDataSource,
+        dogsLocalDataSource: DogsLocalDataSource
+    ): DogsRepository =
+        DogsRepositoryImpl(dogsRemoteDataSource, dogsLocalDataSource)
 
     @Provides
     fun provideGetDogsUseCase(dogsRepository: DogsRepository): GetDogsUseCase =

@@ -1,7 +1,7 @@
 package com.example.dogschallenge.data
 
 import com.example.dogschallenge.data.datasource.local.DogsLocalDataSource
-import com.example.dogschallenge.data.datasource.local.room.isValidDogs
+import com.example.dogschallenge.data.datasource.local.room.isInvalidDogs
 import com.example.dogschallenge.data.datasource.local.room.toDogs
 import com.example.dogschallenge.data.datasource.remote.DogsRemoteDataSource
 import com.example.dogschallenge.data.datasource.remote.retrofit.toDogs
@@ -20,7 +20,7 @@ class DogsRepositoryImpl(
     @OptIn(ExperimentalCoroutinesApi::class)
     override fun getDogs() = dogsLocalDataSource.getDogs()
         .flatMapLatest { dogsEntity ->
-            if (dogsEntity.isValidDogs())
+            if (dogsEntity.isInvalidDogs())
                 dogsRemoteDataSource.fetchDogs()
                     .map { dogsResponse -> dogsResponse.toDogs() }
                     .onEach { dogs -> if (dogs.isSuccess) dogsLocalDataSource.insertDogs(dogs.toDogsEntity()) }
