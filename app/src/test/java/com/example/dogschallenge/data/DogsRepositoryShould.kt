@@ -33,7 +33,7 @@ class DogsRepositoryShould {
     }
 
     @Test
-    fun `Get Dogs data when getDogs form local is success`() = runTest {
+    fun `Get Dogs data when getDogs from local is success`() = runTest {
         val dogsEntity = givenDogsEntityFakeData()
         val dogs = givenDogsFakeData()
         val resultDogsEntitySuccess = Result.success(dogsEntity)
@@ -48,7 +48,7 @@ class DogsRepositoryShould {
     }
 
     @Test
-    fun `Get Dogs data when getDogs form local is empty and fetchDogs form remote is success`() =
+    fun `Get Dogs data when getDogs from local is empty and fetchDogs from remote is success`() =
         runTest {
             val dogsResponse = givenDogsResponseFakeData()
             val dogs = givenDogsFakeData()
@@ -67,7 +67,7 @@ class DogsRepositoryShould {
         }
 
     @Test
-    fun `Get Dogs data when getDogs form local is failure and fetchDogs form remote is success`() =
+    fun `Get Dogs data when getDogs from local is failure and fetchDogs from remote is success`() =
         runTest {
             val dogsResponse = givenDogsResponseFakeData()
             val dogs = givenDogsFakeData()
@@ -87,7 +87,7 @@ class DogsRepositoryShould {
         }
 
     @Test
-    fun `Get Dogs data when getDogs form local is failure and fetchDogs form remote is failure`() =
+    fun `Get Dogs data when getDogs from local is failure and fetchDogs from remote is failure`() =
         runTest {
             val resultDogsEntityFailure: Result<List<DogEntity>> =
                 Result.failure(DataException.DogsException())
@@ -101,6 +101,38 @@ class DogsRepositoryShould {
             verify(dogsLocalDataSource).getDogs()
             verify(dogsRemoteDataSource).fetchDogs()
             verify(dogsLocalDataSource, never()).insertDogs(any())
+            assertThatIsInstanceOf<DataException.DogsException>(result?.exceptionOrNull())
+        }
+
+    @Test
+    fun `Get Dogs data when isRefresh is true and fetchDogs form remote is success`() =
+        runTest {
+            val dogsResponse = givenDogsResponseFakeData()
+            val dogs = givenDogsFakeData()
+            val dogsEntity = givenDogsEntityFakeData()
+            val resultDogsResponseSuccess = Result.success(dogsResponse)
+            whenever(dogsRemoteDataSource.fetchDogs()).thenReturn(flowOf(resultDogsResponseSuccess))
+
+            val result = dogsRepository.getDogs(isRefresh = true).lastOrNull()
+
+            verify(dogsRemoteDataSource).fetchDogs()
+            verify(dogsLocalDataSource).insertDogs(dogsEntity)
+            verify(dogsLocalDataSource, never()).getDogs()
+            assertThatEquals(result?.getOrNull(), dogs)
+        }
+
+    @Test
+    fun `Get Dogs data when isRefresh is true and fetchDogs form remote is failure`() =
+        runTest {
+            val resultDogsResponseFailure: Result<List<DogResponse>> =
+                Result.failure(DataException.DogsException())
+            whenever(dogsRemoteDataSource.fetchDogs()).thenReturn(flowOf(resultDogsResponseFailure))
+
+            val result = dogsRepository.getDogs(isRefresh = true).lastOrNull()
+
+            verify(dogsRemoteDataSource).fetchDogs()
+            verify(dogsLocalDataSource, never()).insertDogs(any())
+            verify(dogsLocalDataSource, never()).getDogs()
             assertThatIsInstanceOf<DataException.DogsException>(result?.exceptionOrNull())
         }
 }

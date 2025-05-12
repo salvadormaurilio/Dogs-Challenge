@@ -5,5 +5,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface GetDogsUseCase {
 
-    operator fun invoke(): Flow<Result<List<Dog>>>
+    operator fun invoke(isRefresh: Boolean = false): Flow<Result<List<Dog>>>
 }

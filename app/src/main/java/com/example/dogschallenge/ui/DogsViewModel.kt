@@ -20,7 +20,8 @@ class DogsViewModel @Inject constructor(
     private val coroutinesDispatchers: CoroutinesDispatchers
 ) : ViewModel() {
 
-    var jobGetDogs: Job? = null
+    private var isRefresh = false
+    private var jobGetDogs: Job? = null
 
     private val _dogsUiState = MutableStateFlow(DogsUiState())
     val dogsUiState = _dogsUiState.asStateFlow()
@@ -35,11 +36,17 @@ class DogsViewModel @Inject constructor(
         getDogs()
     }
 
+    fun refreshDogs() {
+        if (dogsUiState.value.isLoading) return
+        isRefresh = true
+        getDogs()
+    }
+
     private fun getDogs() {
         jobGetDogs?.cancel()
         jobGetDogs = viewModelScope.launch(coroutinesDispatchers.io) {
             updateDogsUiState(isLoading = true)
-            getDogsUseCase().collect {
+            getDogsUseCase(isRefresh = isRefresh).collect {
                 getDogsSuccess(it)
                 getDogsError(it)
             }
@@ -48,6 +55,7 @@ class DogsViewModel @Inject constructor(
 
     private fun getDogsSuccess(result: Result<List<Dog>>) = result.onSuccess {
         updateDogsUiState(dogs = it)
+        isRefresh = false
     }
 
     private fun getDogsError(result: Result<List<Dog>>) = result.onFailure {

@@ -1,6 +1,7 @@
 package com.example.dogschallenge.ui
 
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -14,6 +15,8 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.pulltorefresh.PullToRefreshBox
+import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
@@ -27,7 +30,6 @@ import com.example.dogschallenge.core.extensions.empty
 import com.example.dogschallenge.data.datasource.exception.DataException
 import com.example.dogschallenge.domain.model.Dog
 import com.example.dogschallenge.ui.theme.DogsChallengeTheme
-import com.example.dogschallenge.ui.views.CircularProgressIndicatorFixMax
 import com.example.dogschallenge.ui.views.DogItem
 import com.example.dogschallenge.ui.views.DogsErrorScreen
 
@@ -48,39 +50,48 @@ fun DogsScreen(
         dogs = uiState.value.dogs,
         error = uiState.value.error,
         onRetry = viewModel::retryGetDogs,
+        onRefresh = viewModel::refreshDogs,
         onBackClick = onBackClick
     )
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun DogsContent(
     isLoading: Boolean = false,
     dogs: List<Dog>? = null,
     error: Throwable? = null,
     onRetry: () -> Unit = {},
+    onRefresh: () -> Unit = {},
     onBackClick: () -> Unit = {},
 ) {
+    val pullToRefreshState = rememberPullToRefreshState()
+
     Scaffold(
         topBar = {
             DogsTopAppBar(onBackClick = onBackClick)
         },
         content = { paddingValues ->
-            Dogs(
-                modifier = Modifier.padding(paddingValues),
-                dogs = dogs
-            )
+            PullToRefreshBox(
+                modifier = Modifier
+                    .padding(paddingValues)
+                    .fillMaxSize(),
+                isRefreshing = isLoading,
+                state = pullToRefreshState,
+                onRefresh = onRefresh
+            ) {
+                Dogs(
+                    dogs = dogs
+                )
 
-            DogsErrorScreen(
-                modifier = Modifier.padding(paddingValues),
-                error = error,
-                onRetry = onRetry
-            )
+                DogsErrorScreen(
+                    error = error,
+                    onRetry = onRetry
+                )
+            }
 
-            CircularProgressIndicatorFixMax(
-                modifier = Modifier.padding(paddingValues),
-                isVisible = isLoading
-            )
         }
+
     )
 }
 
@@ -110,13 +121,11 @@ fun DogsTopAppBar(onBackClick: () -> Unit = {}) {
 
 @Composable
 fun Dogs(
-    modifier: Modifier = Modifier,
     dogs: List<Dog>?
 ) {
     if (dogs == null) return
 
     LazyColumn(
-        modifier = modifier,
         contentPadding = PaddingValues(vertical = 8.dp)
     ) {
         items(items = dogs) {

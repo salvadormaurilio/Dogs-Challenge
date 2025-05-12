@@ -88,4 +88,33 @@ class DogsViewModelShould {
         verify(getDogsUseCase)()
         assertThatIsInstanceOf<DataException.DogsException>(result?.error)
     }
+
+    @OptIn(ExperimentalCoroutinesApi::class)
+    @Test
+    fun `Get Dogs data when refreshDogs is called and getDogs is success`() = runTest {
+        val dogs = givenDogsFakeData()
+        whenever(getDogsUseCase(isRefresh = true)).thenReturn(flowOf(Result.success(dogs)))
+
+        dogsViewModel.refreshDogs()
+        advanceUntilIdle()
+
+        val result = dogsViewModel.dogsUiState.firstOrNull()
+
+        verify(getDogsUseCase)(isRefresh = true)
+        assertThatEquals(result?.dogs, dogs)
+    }
+
+    @OptIn(ExperimentalCoroutinesApi::class)
+    @Test
+    fun `Get DogsException data when refreshDogs is called and getDogs is failure`() = runTest {
+        whenever(getDogsUseCase(isRefresh = true)).thenReturn(flowOf(Result.failure(DataException.DogsException())))
+
+        dogsViewModel.refreshDogs()
+        advanceUntilIdle()
+
+        val result = dogsViewModel.dogsUiState.firstOrNull()
+
+        verify(getDogsUseCase)(isRefresh = true)
+        assertThatIsInstanceOf<DataException.DogsException>(result?.error)
+    }
 }

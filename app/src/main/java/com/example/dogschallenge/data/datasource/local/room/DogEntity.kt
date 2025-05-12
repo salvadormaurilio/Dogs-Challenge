@@ -24,6 +24,6 @@ private fun DogEntity.toDog() = Dog(
     image = image
 )
 
-fun Result<List<DogEntity>>.isInvalidDogs() = isFailure || getOrNull().isNullOrEmpty()
+fun Result<List<DogEntity>>.isValidDogs() = isSuccess && !getOrNull().isNullOrEmpty()
 
 

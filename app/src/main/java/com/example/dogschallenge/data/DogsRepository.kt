@@ -5,5 +5,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface DogsRepository {
 
-    fun getDogs(): Flow<Result<List<Dog>>>
+    fun getDogs(isRefresh: Boolean = false): Flow<Result<List<Dog>>>
 }
